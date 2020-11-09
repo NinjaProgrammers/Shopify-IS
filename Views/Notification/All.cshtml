@@ -1,0 +1,40 @@
+﻿@model AllNotificationViewModel
+ 
+
+@section Breadcrumb{
+    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li><a asp-controller="User" asp-action="MyUser">My User</a></li>
+    <li class="active">Notifications</li>
+}
+
+<form asp-controller="Notification" asp-action="All" method="post">
+    <input  type="date" asp-for="Date_Search" placeholder="dd/mm/yyyy" value="@DateTime.Now.ToShortDateString()" />
+    <input style="margin-left:150px; padding-left:120px;" type="text" asp-for="Text_Search" placeholder="Search by Text"/>
+    <button type="submit" style="margin-left:30px;" class="search-btn"><i class="fa fa-search"></i></button>
+</form>
+
+<table class="shopping-cart-table table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Text</th>
+        </tr>
+    </thead>    
+    <tbody>
+        @{ 
+            foreach (var item in Model.Notifications)
+            {                
+                <tr>
+                    <td class="col-lg-3">@item.Date</td>
+                    <td class="col-lg-9">@item.Text</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+
+
+
+

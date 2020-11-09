@@ -1,0 +1,294 @@
+﻿@model ProductViewModel
+
+@section Breadcrumb{
+    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li><a asp-controller="Product" asp-action="All">Products</a></li>
+    <li class="active">@Model.Product.Name</li>
+}
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!--  Product Details -->
+            <div class="product product-details clearfix">
+                <div class="col-md-6">
+                    <div id="product-main-view">
+
+                        @foreach (var item in Model.Files)
+                        {
+                            <div class="product-view">
+                                <img src="~/images/@Model.Product.Id/@item" alt="@Model.Product.Name">
+                            </div>
+                        }
+
+                    </div>
+                    <div id="product-view">
+                        @foreach (var item in Model.Files)
+                        {
+                            <div class="product-view">
+                                <img src="~/images/@Model.Product.Id/@item" alt="@Model.Product.Name">
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-body">
+                        <h2 class="product-name">@Model.Product.Name</h2>
+                        <h3 class="product-price">$@Model.Product.Price</h3>
+                        <div>
+
+                            @for (int j = 0; j < 5; j++)
+                            {
+                                if (j < Model.Product.Rating)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-star-o empty"></i>
+                                }
+
+                            }
+                            <a href="#">@Model.Reviews.Count Review(s) / Add Review</a>
+                        </div>
+
+                        @{if (Model.Product.Ammount > 0)
+                            {
+                                <p><strong>Availability:</strong>In Stock</p>
+                            }
+                            else
+                            {
+                                <p><strong>Availability:</strong>Out of Order</p>
+                            }
+                        }
+
+                        <p class="product-thumb">Ammount: @Model.Product.Ammount</p>
+                        <p>
+                            @Model.Product.Description
+                        </p>
+
+                        <form method="post">
+                            <div class="product-options">
+                                <div class="product-btns">
+                                    <div class="qty-input">
+                                        <span class="text-uppercase">QTY: </span>
+                                        <input class="input" asp-for="Product.Ammount" type="number">
+                                        <p class="text-danger">@ViewBag.AmmountError</p>
+                                        <input type="hidden" asp-for="Product.Id" value="@Model.Product.Id" />
+                                    </div>
+                                    <button type="submit" class="btn primary-btn add-to-cart" asp-action="AddProduct" asp-controller="ShoppingCart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                    
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- /section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Reviews (@Model.Reviews.Count)</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="product-reviews">
+
+                        @foreach (var review in Model.Reviews)
+                        {
+                            <div class="single-review">
+                                <div class="review-heading">
+                                    <div><a href="#"><i class="fa fa-user-o"></i> @review.Item2.UserName</a></div>
+                                    <div><i class="fa fa-clock-o"></i> @review.Item1.Date</div>
+                                    <div class="review-rating pull-right">
+                                        @for (int j = 0; j < 5; j++)
+                                        {
+                                            if (j < review.Item1.Rating)
+                                            {
+                                                <i class="fa fa-star"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-star-o empty"></i>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="review-body">
+                                    <p>@review.Item1.ReviewText</p>
+                                </div>
+                            </div>
+                        }
+
+                    <ul class="reviews-pages">
+                        @{
+                            int nextpage = Model.ReviewFirstPage + 3;
+                            int prevpage = Model.ReviewFirstPage - 3;
+                            if (Model.ReviewFirstPage != 1)
+                            {
+                                <li>
+                                    <a asp-controller="Product" asp-action="ProductReview" asp-route-Id="@Model.Product.Id" asp-route-page="@prevpage"><i class="fa fa-caret-left"></i></a>
+                                </li>
+                            }
+                            for (int i = Model.ReviewFirstPage; i < Model.ReviewFirstPage + 3; i++)
+                            {
+                                if (Model.ReviewPage == i)
+                                {
+                                    <li class="active">@i</li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-controller="Product" asp-action="ProductReview" asp-route-Id="@Model.Product.Id" asp-route-page="@i">@i</a>
+                                    </li>
+                                }
+                            }
+                            <li>
+                                <a asp-controller="Product" asp-action="ProductReview" asp-route-Id="@Model.Product.Id" asp-route-page="@nextpage"><i class="fa fa-caret-right"></i></a>
+                            </li>
+                        }
+                    </ul>
+
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <h4 class="text-uppercase">Write Your Review</h4>
+                    <form class="review-form" method="post">
+                        <input type="hidden" asp-for="Username" value="@User.Identity.Name" />
+                        <input type="hidden" asp-for="Review.ProductId" value="@Model.Product.Id" />
+                        <div class="form-group">
+                            <textarea class="input" placeholder="Your review" asp-for="Review.ReviewText"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-rating">
+                                <strong class="text-uppercase">Your Rating: </strong>
+                                <div class="stars">
+                                    <input type="radio" id="star5" name="Rate" value="5" asp-for="Rate" /><label for="star5"></label>
+                                    <input type="radio" id="star4" name="Rate" value="4" asp-for="Rate" /><label for="star4"></label>
+                                    <input type="radio" id="star3" name="Rate" value="3" asp-for="Rate" /><label for="star3"></label>
+                                    <input type="radio" id="star2" name="Rate" value="2" asp-for="Rate" /><label for="star2"></label>
+                                    <input type="radio" id="star1" name="Rate" value="1" asp-for="Rate" /><label for="star1"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-danger">@ViewBag.ReviewError</p>
+                        <button class="primary-btn" asp-controller="Review" asp-action="Add">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Ilicit Content-->
+<!-- /section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Ilicit Content</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p class="text-body">Report ilicit content on the announcement. Annadir info sobre lo que sucede cuando reportas.</p>
+            <form method="post">
+                <input type="hidden" asp-for="Product.Id" value="@Model.Product.Id" />
+                <button class="btn primary-btn" asp-action="IlicitContent" asp-controller="Product">Report</button>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<!--Ilicit Content-->
+
+
+<!-- section -->
+<div class="section">
+<!-- container -->
+<div class="container">
+    <!-- row -->
+    <div class="row">
+        <!-- section title -->
+        <div class="col-md-12">
+            <div class="section-title">
+                <h2 class="title">Favorite Products</h2>
+            </div>
+        </div>
+        <!-- section title -->
+
+
+        @foreach (var item in Model.Favorites)
+        {
+            <!-- Product Single -->
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                <div class="product product-single">
+                    <div class="product-thumb">
+                        <a asp-controller="Product" asp-action="Product" asp-route-id="@item.Id" button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</a>
+                        <img style="height:280px;width:300px;" src="~/images/@item.Id/@item.Images" alt="@item.Name" />
+                        @{
+                            //if (!(item.Images is null))
+                            //{
+                            //  if (item.Images[0] != "")
+                            // {
+                            // }<img src=@item.Images[0] alt="@item.Name" />
+                            //<img alt="@item.Name" />
+                        }
+        </div>
+        <div class="product-body">
+            <h3 class="product-price">$@item.Price</h3>
+            <div class="product-rating">
+                @for (int j = 0; j < 5; j++)
+                {
+                    if (j < item.Rating)
+                    {
+                        <i class="fa fa-star"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-star-o empty"></i>
+                    }
+
+                }
+            </div>
+            <h2 class="product-name"><a asp-controller="Product" asp-action="Product" asp-route-id="@item.Id">@item.Name</a></h2>
+            
+            <form method="post" asp-controller="ShoppingCart" asp-action="AddProductById">
+                <div class="row">
+                    <div class="qty text-center col-lg-3">
+                        <input class="input" type="number" asp-for="Ammount" />
+                        <span asp-validation-for="Ammount"></span>
+                    </div>
+                    <input type="hidden" asp-for="ProductId" value="@item.Id" />
+                    <button type="submit" class="col-lg-6 primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Product Single -->
+                        }
+</div>
+<!-- /row -->
+</div>
+<!-- /container -->
+</div>
+<!-- /section -->

@@ -1,0 +1,51 @@
+﻿
+<h1>Ilicit Announcement</h1>
+
+@model IlicitProductViewModel
+@if (!Model.Products.Any())
+{
+    <h3>There is no announcement reported.</h3>
+}
+else
+{
+<div class="row">
+    @foreach (var item in Model.Products)
+    {
+        if (item.Active)
+        {
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+            <div class="card">
+                <a asp-controller="Product" asp-action="VisualizeProduct" asp-route-id="@item.Id">
+                    @if (item.Images == null)
+                    {
+                        <img class="img-fluid" style="height:300px;width:250px;" src="~/img/NoImage.png" alt="No Image">
+                    }
+                    else
+                    {
+                    <img class="img-fluid" style="height:300px;width:250px;" src="~/images/@item.Id/@item.Images" alt="@item.Name">
+                    }
+                </a>
+                    <div class="card-body">
+                        <a asp-controller="Product" asp-action="VisualizeProduct" asp-route-id="@item.Id"><h3 class="card-title">@item.Name</h3></a>
+                        <p class="card-text">@item.Description</p>
+                        <p class="text-muted">@item.Price$</p>
+                        <p class="text-muted">Ammount:  @item.Ammount</p>
+                        <p class="text-muted">Category:  @item.Category</p>
+                    </div>
+                    <div class="card-footer">
+                        <form method="post">
+                            <input type="hidden" asp-for="UserId" value="@item.UserId" />
+                            <input type="hidden" asp-for="ProductName" value="@item.Name" />
+                            <input type="hidden" asp-for="ProductId" value="@item.Id" />
+                            <button type="submit" class="main-btn" asp-action="AddIlicit" asp-controller="Notification" asp-route-id="@item.Id">Delete</button>
+                            <button type="submit" class="main-btn" asp-action="RemoveIlicit" asp-controller="Product" asp-route-id="@item.Id">Remove from List</button>
+
+                        </form>
+                    </div>
+                </div>
+        </div>
+        }
+        
+    }
+</div>
+}

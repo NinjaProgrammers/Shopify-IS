@@ -1,0 +1,107 @@
+﻿
+@section Breadcrumb{
+    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li><a asp-controller="Auction" asp-action="All">Auction</a></li>
+    <li class="active">Put in Auction</li>
+}
+
+@section Styles{
+    <link href="~/lib/assets/datepicker/tempusdominus-bootstrap-4.css" rel="stylesheet" />
+}
+
+@model Auction
+
+
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <div class="col-md-6 col-lg-6 col-sm-12">
+        <div class="product product-details clearfix">
+            <div id="product-main-view">
+                <div class="product-view">
+                    <img src="~/images/@Model.Product.Id/@Model.Product.Images" alt="@Model.Product.Name">
+                </div>
+            </div>
+            <div id="product-view">
+                <div class="product-view">
+                    <img src="~/images/@Model.Product.Id/@Model.Product.Images" alt="@Model.Product.Name">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Product Details -->
+
+    <div class="col-md-6 col-lg-6 col-sm-12">
+        <div class="product-body">
+            <h2 class="product-name">@Model.Product.Name</h2>
+            <h3 class="product-price">$@Model.Product.Price</h3>
+            <div>
+
+                @for (int j = 0; j < 5; j++)
+                {
+                    if (j < Model.Product.Rating)
+                    {
+                        <i class="fa fa-star"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-star-o empty"></i>
+                    }
+
+                }
+            </div>
+
+            @{if (Model.Product.Ammount > 0)
+                {
+                    <p><strong>Availability: @Model.Product.Ammount </strong>In Stock</p>
+                }
+                else
+                {
+                    <p><strong>Availability:</strong>Out of Order</p>
+                }
+            }
+
+            <p>
+                @Model.Product.Description
+            </p>
+
+        </div>
+        <form method="post">
+            <div class="billing-details">
+                <div class="section-title">
+                    <h3 class="title">Product in Auction</h3>
+                </div>
+                <div class="form-group">
+                <label for="datetimepicker" class="col-form-label" asp-for="Date">Select Finish Date and Time</label>
+                <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                    <div class="input-group-append row" data-target="#datetimepicker" data-toggle="datetimepicker">
+                        <input class="input form-control datetimepicker-input" data-target="#datetimepicker" asp-for="Date" />
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label class="product-label" asp-for="InitialPrice">Initial Price</label>
+                    <input asp-for="InitialPrice" class="input" placeholder="Initial Price">
+                    <span class="text-danger" asp-validation-for="InitialPrice">@ViewBag.PriceError</span>
+                </div>
+                <div class="form-group">
+                    <label class="product-label" asp-for="Ammount">Ammount</label>
+                    <input asp-for="Ammount" class="input" placeholder="Product Ammount">
+                    <span class="text-danger" asp-validation-for="Ammount"></span>
+                    <p class="text-danger">@ViewBag.AmmountError</p>
+                </div>
+            </div>
+            <input type="hidden" asp-for="ProductId" value="@Model.Product.Id" />
+            <input type="hidden" asp-for="ActualPrice" value="0" />
+            <input type="hidden" asp-for="ActualUser" value="no_user" />
+            <button class="primary-btn" type="submit" asp-action="Add" asp-controller="Auction">Submit</button>
+            <span class="validation-summary"></span>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/lib/assets/datepicker/datepicker.js"></script>
+    <script src="~/lib/assets/datepicker/moment.js"></script>
+    <script src="~/lib/assets/datepicker/tempusdominus-bootstrap-4.js"></script>
+}

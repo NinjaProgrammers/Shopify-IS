@@ -1,0 +1,20 @@
+﻿
+@model ErrorViewModel
+
+
+<h3>@Model.ErrorTitle</h3>
+<h5>An error occured while processing your request. The support team is notified and we are working on the fix.</h5>
+
+<hr />
+
+<div class="alert alert-danger">
+    <h5>Exception Path</h5>
+    <p>
+        @Model.Path
+</div>
+
+<hr />
+<p>
+    Meanwhile, you may <a asp-controller="Home" asp-action="Index"> return to main page</a>.
+</p>
+

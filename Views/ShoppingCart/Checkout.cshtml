@@ -1,0 +1,115 @@
+﻿
+@section Breadcrumb{
+    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li class="active">Checkout</li>
+}
+@{ 
+    decimal supertotal = 0;
+}
+
+@model CheckoutViewModel
+
+<br/>
+<!-- row -->
+<div class="row">
+    <form method="post" id="checkout-form" class="clearfix">
+        <div class="col-md-6">
+            <div class="billing-details">
+                <div class="section-title">
+                    <h3 class="title">Billing Details</h3>
+                </div>
+                <div class="form-group">
+                    <input class="input" type="text" asp-for="Titular" placeholder="Titular Name">
+                    <span class="text-danger" asp-validation-for="Titular"></span>
+                </div>
+                <div class="form-group">
+                    <input class="input" type="text" asp-for="City" placeholder="City">
+                    <span class="text-danger" asp-validation-for="City"></span>
+                </div>
+                <div class="form-group">
+                    <input class="input" type="tel" asp-for="Telephone" placeholder="Telephone">
+                    <span class="text-danger" asp-validation-for="Telephone"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="shiping-methods">
+                <div class="section-title">
+                    <h4 class="title">Bank Account</h4>
+                    <a class="small pull-right primary-btn" style="height:30px;" asp-controller="BankAccount" asp-action="Add">Add Bank Account</a>
+                </div>
+
+                @foreach (var item in Model.ListItems)
+                {
+                    <input asp-for="BankAccount" type="radio" name="bankaccount" value="@item.Text" />@item.Text<br />
+                }
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="order-summary clearfix">
+                <div class="section-title">
+                    <h3 class="title">Products</h3>
+                </div>
+                <table class="shopping-cart-table table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th></th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-right"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @for (int i = 0; i < Model.Products.Count(); i++)
+                        {
+                            var item = Model.Products[i];
+                            decimal total = item.Price * item.Ammount;
+                            supertotal += total;
+                            <tr>
+                                <td class="thumb"><img src="~/images/@item.Id/@item.Images" alt="@item.Name"></td>
+                                <td class="details">
+                                    <a asp-controller="Product" asp-action="Product" asp-route-id="@item.Id">@item.Name</a>
+                                    <input asp-for="Products[i].Id" type="hidden" />
+                                    <input asp-for="Products[i].UserId" type="hidden" />
+                                    <input asp-for="Products[i].Name" type="hidden" />
+                                    <input asp-for="Products[i].Ammount" type="hidden" />
+                                    <input asp-for="Products[i].Price" type="hidden" />
+                                    <span>@item.Description</span>
+                                </td>
+                                <td class="price text-center"><strong>$@item.Price</strong></td>
+                                <td class="qty text-center"><span>@item.Ammount</span></td>
+                                <td class="total text-center"><strong class="primary-color">$@total</strong></td>
+                                <td class="text-right"><a class="main-btn icon-btn" asp-action="DeleteProduct" asp-controller="ShoppingCart" asp-route-id="@item.Id"><i class="fa fa-close"></i></a></td>
+                            </tr>
+
+                        }
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th class="empty" colspan="3"></th>
+                            <th>TOTAL</th>
+                            <th colspan="2" class="total">$@supertotal</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="pull-right">
+            <button type="submit" asp-action="Checkout" asp-controller="ShoppingCart" class="btn primary-btn">Place Order</button>
+        </div>
+    </form>
+
+    <div>
+        <h4 class="text-danger">@ViewBag.Error</h4>
+    </div>
+</div>
+<!-- /row -->

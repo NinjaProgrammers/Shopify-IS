@@ -1,0 +1,61 @@
+﻿
+
+@model RegisterViewModel
+
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+            <div class="row">
+                <form id="checkout-form" class="clearfix" method="post">
+                    <div class="billing-details">
+                        <p>Already a customer ? <a asp-controller="Account" asp-action="Login">Login</a></p>
+                        <div class="section-title">
+                            <h3 class="title">Register User</h3>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" placeholder="Username" asp-for="UserName" />
+                            <span asp-validation-for="UserName"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" placeholder="Name" asp-for="Name" />
+                            <span asp-validation-for=Name></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" placeholder="Last Name" asp-for="LastName" />
+                            <span asp-validation-for=LastName></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" placeholder="Info" asp-for="Info" />
+                            <span asp-validation-for=Info></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" placeholder="Email" asp-for="Email" />
+                            <span asp-validation-for=Email></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" placeholder="Telephone" asp-for="Telephone" />
+                            <span asp-validation-for=Telephone></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" placeholder="City" asp-for="City" />
+                            <span asp-validation-for=City></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" placeholder="Password" asp-for="Password" />
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" placeholder="Password Confirmation" asp-for="PasswordConfirmation" />
+                        </div>
+                        <div class="pull-right">
+                            <button class="primary-btn" type="submit">Create</button>
+                        </div>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,33 @@
+﻿
+@model EditRoleViewModel
+
+<h3>@Model.RoleName</h3>
+<br />
+
+<div class="card">
+    <div class="card-header">
+        <h4>Users in this Role:</h4>
+    </div>
+    <div>
+
+           <div> 
+            @if (Model.Users.Count > 0)
+                {
+                    foreach(var user in Model.Users)
+                    {
+                        <h5>@user</h5>
+                    }
+                }
+                else
+                {
+                    <p>No users in this role</p>
+                }
+           </div>
+    </div>
+    <div class="card-footer">
+        <a asp-controller="Administration" asp-action="EditUsersInRole" asp-route-id="@Model.Id" class="main-btn">Add/Remove User</a>
+    </div>
+
+</div>
+
+

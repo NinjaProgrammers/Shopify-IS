@@ -1,0 +1,45 @@
+﻿
+@model IEnumerable<IdentityRole>
+
+
+@{
+    ViewBag.Title = "AllRoles";
+}
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="title">All Roles</h3>
+        </div>
+
+        @{
+            if (Model.Any())
+            {
+                foreach (var role in Model)
+                {
+                    <h3>Role Name:  @role.Name</h3>
+                    <form asp-action="DeleteRole" asp-route-id="@role.Id" method="post">
+                        @if ((await authorizationService.AuthorizeAsync(User, "EditRolePolicy")).Succeeded || (await authorizationService.AuthorizeAsync(User,"AdminRolePolicy")).Succeeded)
+                        {
+                            <a class="main-btn" asp-controller="Administration" asp-action="EditRole" asp-route-id="@role.Id">Edit</a>
+                        }
+                        @if ((await authorizationService.AuthorizeAsync(User, "DeleteRolePolicy")).Succeeded || (await authorizationService.AuthorizeAsync(User,"AdminRolePolicy")).Succeeded)
+                        {
+                            <button type="submit" class="main-btn">Delete</button>
+                        }
+                    </form>
+                    <br /><br />
+                }
+            }
+            else
+            {
+                <h4>No Roles created yet</h4>
+                @if ((await authorizationService.AuthorizeAsync(User, "CreateRolePolicy")).Succeeded)
+                {
+                    <h5>Use the button bellow to create a Role</h5>
+                    <a class="main-btn" asp-controller="Administration" asp-action="CreateRole">Create Role</a>
+                }
+            }
+
+        }
+
+    </div>

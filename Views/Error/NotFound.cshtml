@@ -1,0 +1,26 @@
+﻿@model ErrorViewModel
+
+
+<h3>@Model.ErrorTitle</h3>
+
+<div class="alert alert-danger">
+    <h5>Exception Message</h5>
+    <p>
+        @Model.ErrorMessage
+</div>
+
+<div class="alert alert-danger">
+    <h5>Exception Path</h5>
+    <p>
+        @Model.Path
+</div>
+<div class="alert alert-danger">
+    <h5>Exception Query String</h5>
+    <p>
+        @Model.QueryString
+</div>
+
+<p>
+    Meanwhile, you may <a asp-controller="Home" asp-action="Index"> return to main page</a>.
+</p>
+

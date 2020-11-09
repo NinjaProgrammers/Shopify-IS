@@ -1,0 +1,192 @@
+﻿
+@model AuctionViewModel
+@{
+    var remainingTime = Model.Date - Model.InitialTime;
+}
+@section Breadcrumb{
+    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li><a asp-controller="Auction" asp-action="All">Auction</a></li>
+    <li class="active">@Model.Product.Name</li>
+}
+@{    
+    var time = Model.Date - DateTime.Now;
+    var days = time.Days;
+    var hour =time.Hours;
+    var min =time.Minutes;
+    var sec = time.Seconds;
+}
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!--  Product Details -->
+            <div class="product product-details clearfix">
+                <div class="col-md-6">
+                    <div id="product-main-view">
+                        <div class="product-view">
+                            <img src="~/images/@Model.Product.Id/@Model.Product.Images" alt=@Model.Product.Name>
+                        </div>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-label">
+                            <span>In Auction</span>
+                            <span class="sale">@days Days @hour: @min: @sec Left</span>
+                        </div>
+                        <h2 class="product-name">@Model.Product.Name</h2>
+                        <h3 class="product-price">$@Model.ActualPrice <del class="product-old-price">$@Model.InitialPrice</del></h3>
+                        <div>
+                            <div class="product-rating">
+                                @for (int j = 0; j < 5; j++)
+                                {
+                                    if (j < Model.Product.Rating)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-star-o empty"></i>
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                        <p><strong>Ammount:</strong> @Model.Ammount</p>
+                        <p><strong>Initial Price:</strong> @Model.InitialPrice</p>
+                        <p><strong>Actual Price:</strong> @Model.ActualPrice</p>
+                        <p><strong>Initial Time:</strong> @Model.InitialTime</p>
+                        <p><strong>Finish Time:</strong> @Model.Date</p>
+                        <p>@Model.Product.Description</p>
+
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-transparent">
+                            <h3 class="card-header-title">@Model.Product.Name</h3><br />
+                            <h3>Price: $@Model.ActualPrice</h3>
+                            <h3>Remaining time: @days Days @hour: @min: @sec</h3>
+                            <h4>Users: @Model.UsersInAuctions.Count</h4>
+                            <div class="card-header">
+                                <form method="post">
+                                    <div class="product-btns">
+                                        <div class="qty-input">
+                                            <span class="text-uppercase">BID: </span>
+                                            <input asp-for="ActualPrice" class="input" type="text">
+                                            <input type="hidden" asp-for="Id" />
+                                            <input type="hidden" asp-for="User_Sale_ID" />
+                                            <input type="hidden" asp-for="ProductName" value="@Model.Product.Name" />
+                                        </div>
+                                        <button asp-action="Bid" asp-controller="Auction" type="submit" class="primary-btn"><i class="fa fa-shopping-cart"></i>Bid</button>
+                                    </div>
+                                </form>
+                                <span class="text-danger">@ViewBag.BidError</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            @for (int i = 1; i <= Model.Notifications.Count; i++)
+                            {
+                                <h5 class="text-dark">#@i @Model.Notifications[i-1].Text</h5>
+                            }
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="product-tab">
+                        <ul class="tab-nav">
+                            <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
+                            <li><a data-toggle="tab" href="#tab2">Reviews (@Model.Review.Count())</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab1" class="tab-pane fade in active">
+                                <h3>User: @Model.User_Sale.Name</h3>
+                                <h4>User Information: @Model.User_Sale.Info</h4>
+                                <h3>Product: @Model.Product.Name</h3>
+                                <p>
+                                    @Model.Product.Description
+                                </p>
+                            </div>
+                            <div id="tab2" class="tab-pane fade in">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="product-reviews">
+
+                                            @foreach (var review in Model.Review)
+                                            {
+                                                <div class="single-review">
+                                                    <div class="review-heading">
+                                                        <div><a href="#"><i class="fa fa-user-o"></i> @review.Item2.UserName</a></div>
+                                                        <div><i class="fa fa-clock-o"></i> @review.Item1.Date</div>
+                                                        <div class="review-rating pull-right">
+                                                            @for (int j = 0; j < 5; j++)
+                                                            {
+                                                                if (j < review.Item1.Rating)
+                                                                {
+                                                                    <i class="fa fa-star"></i>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <i class="fa fa-star-o empty"></i>
+                                                                }
+
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="review-body">
+                                                        <p>@review.Item1.ReviewText</p>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <ul class="reviews-pages">
+                                                <li class="active">1</li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4 class="text-uppercase">Write Your Review</h4>
+                                        <form class="review-form" method="post">
+                                            <input type="hidden" asp-for="@Model.WrittenReview.ProductId" value="@Model.Product.Id" />
+                                            <input type="hidden" asp-for="Id" /> 
+                                            <input type="hidden" asp-for="ActualUser" value="no_user" />
+                                            <div class="form-group">
+                                                <textarea class="input" placeholder="Your review" asp-for="WrittenReview.ReviewText"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-rating">
+                                                    <strong class="text-uppercase">Your Rating: </strong>
+                                                    <div class="stars">
+                                                        <input type="radio" id="star5" name="Rate" value="5" asp-for="Rate" /><label for="star5"></label>
+                                                        <input type="radio" id="star4" name="Rate" value="4" asp-for="Rate" /><label for="star4"></label>
+                                                        <input type="radio" id="star3" name="Rate" value="3" asp-for="Rate" /><label for="star3"></label>
+                                                        <input type="radio" id="star2" name="Rate" value="2" asp-for="Rate" /><label for="star2"></label>
+                                                        <input type="radio" id="star1" name="Rate" value="1" asp-for="Rate" /><label for="star1"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="text-danger">@ViewBag.ReviewError</p>
+                                            <button class="primary-btn" asp-controller="Review" asp-action="AddReviewInAuction">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Product Details -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->

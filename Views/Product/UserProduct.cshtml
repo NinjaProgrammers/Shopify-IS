@@ -1,0 +1,119 @@
+﻿
+
+@section Breadcrumb{
+    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li><a asp-controller="Product" asp-action="All">Products</a></li>
+    <li class="active">My Products</li>
+}
+
+@model AllProductsViewModel
+
+        <!-- MAIN -->
+        <div id="main">
+            <div class="store-filter clearfix">
+                <div class="pull-left">
+                    <form method="post">
+                        <div class="sort-filter">
+                            <span class="text-uppercase">Category:</span>
+                            <select asp-for="Category" asp-items="@Model.selectListCategory" class="input">
+                            </select>
+                            <input type="hidden" asp-for="selectListItems" value="@Model.selectListItems" />
+                            <input type="hidden" asp-for="Page" value="@Model.Page" />
+                            <input type="hidden" asp-for="FirstPage" value="@Model.FirstPage" />
+                            <input type="hidden" asp-for="selectListCategory" value="@Model.selectListCategory" />
+                            <input type="hidden" asp-for="Category" />
+                            <button type="submit" asp-action="UserProduct" class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="pull-right">
+                    <ul class="store-pages">
+                        <li><span class="text-uppercase">Page:</span></li>
+                        @{
+                            var prevpage = Model.FirstPage - 3;
+                            var nextpage = Model.FirstPage + 3;
+                            if (Model.FirstPage != 1)
+                            {
+                                <li>
+                                    <form method="post">
+                                        <input type="hidden" asp-for="Page" value="@prevpage" />
+                                        <button type="submit" asp-action="UserProduct"><i class="fa fa-caret-left"></i></button>
+                                    </form>
+                                </li>
+                            }
+                            for (int i = Model.FirstPage; i < Model.FirstPage + 3; i++)
+                            {
+                                if (i == Model.Page)
+                                {
+                                    <li class="active">@i</li>
+                                }
+                                else
+                                {
+                                    <li><form method="post">
+                                        <input type="hidden" asp-for="Page" value="@i" />
+                                        <button type="submit" asp-action="UserProduct">@i</button>
+                                    </form></li>
+                                }
+                            }
+                        }
+                        <li><form method="post">
+                            <input type="hidden" asp-for="Page" value="@nextpage" />
+                            <button type="submit" asp-action="UserProduct"><i class="fa fa-caret-right"></i></button>
+                        </form></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="store">
+            <!-- row -->
+            <div class="row">
+                @{ if (!Model.Products.Any())
+                    {
+                        <h1>Ooops, you have no announcemets yet.</h1>
+                        <a asp-controller="Product" asp-action="Add">Click here to add one</a>
+                    }
+                    else
+                    {
+                        {
+                            foreach (var item in Model.Products)
+                            {
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <div class="product product-single">
+                                <div class="product-thumb">
+                                    <a asp-controller="Product" asp-action="VisualizeProduct" asp-route-id="@item.Id" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</a>
+                                    <img style="height:300px;width:340px;" src="~/images/@item.Id/@item.Images" alt="@item.Name">
+                                </div>
+                                <div class="product-body">
+                                    <h3 class="product-price">$@item.Price</h3>
+                                    <div class="product-rating">
+                                        @for (int j = 0; j < 5; j++)
+                                        {
+                                            if (j < item.Rating)
+                                            {
+                                                <i class="fa fa-star"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-star-o empty"></i>
+                                            }
+
+                                        }
+                                    </div>
+                                    <h2 class="product-name"><a asp-controller="Product" asp-action="Product" asp-route-id="@item.Id">@item.Name</a></h2>
+                                </div>
+                                <div class="product-btns">
+                                    <a class="main-btn" asp-controller="Product" asp-action="Update" asp-route-id="@item.Id">Update</a>
+                                    <a class="main-btn" asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    <a class="main-btn" asp-controller="Auction" asp-action="Add" asp-route-id="@item.Id">Put in Auction</a>
+                                </div>
+                            </div>
+                        </div>
+                                }
+                            }
+                        }
+                    }
+            </div>
+            <!-- /row -->
+        </div>
+                       

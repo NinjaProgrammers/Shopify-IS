@@ -1,0 +1,72 @@
+﻿@model ProductViewModel
+
+@section Breadcrumb{
+    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li><a asp-controller="Product" asp-action="All">Products</a></li>
+    <li class="active">@Model.Product.Name</li>
+}
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!--  Product Details -->
+            <div class="product product-details clearfix">
+                <div class="col-md-6">
+                    <div id="product-main-view">
+                        <div class="product-view">
+                            <img src="~/images/@Model.Product.Id/@Model.Product.Images" alt="@Model.Product.Name">
+                        </div>
+                    </div>
+                    <div id="product-view">
+                        <div class="product-view">
+                            <img src="~/images/@Model.Product.Id/@Model.Product.Images" alt="@Model.Product.Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-body">
+                        <h2 class="product-name">@Model.Product.Name</h2>
+                        <h3 class="product-price">$@Model.Product.Price</h3>
+                        <div>
+
+                            @for (int j = 0; j < 5; j++)
+                            {
+                                if (j < Model.Product.Rating)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-star-o empty"></i>
+                                }
+
+                            }
+                        </div>
+
+                        @{if (Model.Product.Ammount > 0)
+                            {
+                                <p><strong>Availability:</strong> In Stock</p>
+                            }
+                            else
+                            {
+                                <p><strong>Availability:</strong>Out of Order</p>
+                            }
+                        }
+
+                        <p>
+                            @Model.Product.Description
+                        </p>
+
+                    </div>
+                </div>   
+            </div>
+            <!-- /Product Details -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->

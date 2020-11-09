@@ -1,0 +1,80 @@
+﻿
+@{ 
+    char c = '/';
+}
+@model CartViewModel
+
+<!-- Account -->
+<li class="header-account dropdown default-dropdown">
+    <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+        <div class="header-btns-icon">
+            <i class="fa fa-user-o"></i>
+        </div>
+        @if (User.Identity.IsAuthenticated) {
+         <strong class="text-uppercase">@User.Identity.Name <i class="fa fa-caret-down"></i></strong>
+        }
+        else {
+        <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+        }
+    </div>
+    @if (!User.Identity.IsAuthenticated) {
+        <a asp-controller="Account" asp-action="Login" class="text-uppercase">Login</a> @c <a asp-controller="Account" asp-action="Register" class="text-uppercase">Join</a>
+    }
+<ul class="custom-menu">
+    @{
+        if (User.Identity.IsAuthenticated)
+        {
+            <li><a asp-controller="User" asp-action="MyUser"><i class="fa fa-user-o"></i> My Account</a></li>
+            <li><a asp-controller="ShoppingCart" asp-action="Checkout"><i class="fa fa-check"></i> Checkout</a></li>
+            <li><a asp-controller="Notification" asp-action="All"><i class="fa fa-paper-plane"></i>Notification</a></li>
+            <li><a asp-controller="Account" asp-action="Logout_Get"><i class="fa fa-arrow-right"></i>Logout</a></li>            
+
+        }
+        else
+        {
+            <li><a asp-controller="Account" asp-action="Login"><i class="fa fa-unlock-alt"></i> Login</a></li>
+            <li><a asp-controller="Account" asp-action="Register"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+        }
+    }
+
+</ul>
+</li>
+<!-- /Account -->
+
+<!-- Cart -->
+<li class="header-cart dropdown default-dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <div class="header-btns-icon">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="qty">@Model.items</span>
+        </div>
+        <strong class="text-uppercase">My Cart<i class="fa fa-caret-down"></i></strong>
+        <br>
+        <span>@Model.total</span>
+    </a>
+    <div class="custom-menu">
+        <div id="shopping-cart">
+            <div class="shopping-cart-list">
+                @{
+                    foreach (var product in @Model.products)
+                    {
+                    <div class="product product-widget">
+                        <div class="product-thumb">
+                          <img src="~/images/@product.Id/@product.Images" alt="@product.Name">
+                        </div>
+                        <div class="product-body">
+                            <h3 class="product-price">@product.Price <span class="qty">x @product.Ammount</span></h3>
+                            <h2 class="product-name"><a asp-action="Product" asp-controller="Product" asp-route-id="@product.Id">@product.Name</a></h2>
+                        </div>
+                    </div>                
+                    }
+                }
+            </div>
+            <div class="shopping-cart-btns">
+                <a class="main-btn" asp-action="ShoppingCart" asp-controller="ShoppingCart">View Cart</a>
+                <a class="btn primary-btn" asp-action="Checkout" asp-controller="ShoppingCart">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</li>
+<!-- /Cart -->

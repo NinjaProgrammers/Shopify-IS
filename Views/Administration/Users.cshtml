@@ -1,0 +1,37 @@
+﻿
+@model IEnumerable<User>
+
+
+@foreach (var u in Model)
+{
+    if (u.Active)
+    {
+        <div class="row">
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">@u.UserName</h3>
+                    @if ((await authorizationService.AuthorizeAsync(User, "AdminRolePolicy")).Succeeded)
+                    {
+                        <div class="pull-right">
+                            <form asp-action="DeleteUser" asp-route-id="@u.Id" method="post">
+                                <a class="main-btn" style="height:37px;" asp-controller="Administration" asp-action="EditUser" asp-route-id="@u.Id">Edit</a>
+                                <button type="submit" style="height:37px;" class="main-btn" onclick="return confirm('Are you sure you want to delete user: @u.UserName')">Delete</button>
+                            </form>
+                        </div>
+                    }
+                    </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Name: @u.Name @u.LastName</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="info">User information:</p>
+                        <p>@u.Info</p>
+                        <p>City: @u.City  | Email:  @u.Email  |  Telephone: @u.PhoneNumber </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

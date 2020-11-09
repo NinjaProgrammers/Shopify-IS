@@ -1,0 +1,125 @@
+﻿@model AllProductsViewModel
+
+@section Breadcrumb{
+    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li class="active"><a asp-controller="Product" asp-action="All">Products</a></li>
+}
+
+@{ 
+    ViewBag.Products = Model.Products;
+}
+
+    <!-- MAIN -->
+    <div id="main">
+        <!-- store top filter -->
+        <div class="store-filter clearfix">
+            <div class="row">
+                <div class="pull-left">
+                    <form method="post">
+                        <div class="sort-filter">
+                            <span class="text-uppercase">Category:</span>
+                            <select asp-for="Category" asp-items="@Model.selectListCategory" class="input">
+                            </select>
+                            <span class="text-uppercase">Sort By:</span>
+                            <select asp-for="Filter" asp-items="@Model.selectListItems" class="input">
+                            </select>
+                            <input type="hidden" asp-for="selectListItems" value="@Model.selectListItems" />
+                            <input type="hidden" asp-for="Page" value="@Model.Page" />
+                            <input type="hidden" asp-for="FirstPage" value="@Model.FirstPage" />
+                            <input type="hidden" asp-for="selectListCategory" value="@Model.selectListCategory" />
+                            <input type="hidden" asp-for="Category" />
+                            <button type="submit" asp-action="AllFilter" class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="pull-right">
+                    <ul class="store-pages">
+                        <li><span class="text-uppercase">Page:</span></li>
+                        @{
+                            var prevpage = Model.FirstPage - 3;
+                            var nextpage = Model.FirstPage + 3;
+                            if (Model.FirstPage != 1)
+                            {
+                                <li><a asp-action="All" asp-route-page="@prevpage"><i class="fa fa-caret-left"></i></a></li>
+                            }
+                            for (int i = Model.FirstPage; i < Model.FirstPage + 3; i++)
+                            {
+                                if (i == Model.Page)
+                                {
+                                    <li class="active">@i</li>
+                                }
+                                else
+                                {
+                                    <li><a asp-action="All" asp-route-page="@i">@i</a></li>
+                                }
+                            }
+                        }
+                        <li><a asp-action="All" asp-route-page="@nextpage"><i class="fa fa-caret-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /store top filter -->
+    </div>
+
+
+    <!-- STORE -->
+    <div id="store">
+        <!-- row -->
+        <div class="row">
+            @{
+                foreach (var item in Model.Products)
+                {
+                    if (!item.Active) continue;
+                    <div class="col-md-4 col-sm-6 col-xs-6">
+                        <div class="product product-single">
+                            <div class="product-thumb">
+                                <a asp-controller="Product" asp-action="Product" asp-route-id="@item.Id" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</a>
+                                <img style="height:300px;width:340px;" src="~/images/@item.Id/@item.Images" alt="@item.Name">
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-price">$@item.Price</h3>
+                                <div class="product-rating">
+                                    @for (int j = 0; j < 5; j++)
+                                    {
+                                        if (j < item.Rating)
+                                        {
+                                            <i class="fa fa-star"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-star-o empty"></i>
+                                        }
+
+                                    }
+                                </div>
+                                <h2 class="product-name"><a asp-controller="Product" asp-action="Product" asp-route-id="@item.Id">@item.Name</a></h2>
+                                <h5>
+                                    @item.Category  @{
+                                        if (ViewBag.ProductId == item.Id)
+                                        {
+                                            <span class="text-danger">Error @ViewBag.AmmountError</span>
+                                        }
+                                    }
+                                </h5>
+                                <div class="product-btns">
+                                    <form method="post" asp-controller="ShoppingCart" asp-action="AddProductById">
+                                        <div class="row">
+                                            <div class="qty text-center col-lg-3">
+                                                <input class="input" type="number" asp-for="Ammount" />
+                                                <span asp-validation-for="Ammount"></span>
+                                            </div>
+                                            <input type="hidden" asp-for="ProductId" value="@item.Id" />
+                                            <button type="submit" class="col-lg-6 primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>                                            
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /STORE -->
