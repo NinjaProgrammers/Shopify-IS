@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200208173551_Initial.cs" />
+    <Compile Remove="Migrations\20200208173551_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200208175815_Initial.cs" />
+    <Compile Remove="Migrations\20200208175815_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200208193959_Initial.cs" />
+    <Compile Remove="Migrations\20200208193959_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200208194645_Initial.cs" />
+    <Compile Remove="Migrations\20200208194645_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200208195630_Initial.cs" />
+    <Compile Remove="Migrations\20200208195630_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200213231133_SeedData1.cs" />
+    <Compile Remove="Migrations\20200213231133_SeedData1.Designer.cs" />
+    <Compile Remove="Migrations\20200213232702_SeedData1.cs" />
+    <Compile Remove="Migrations\20200213232702_SeedData1.Designer.cs" />
+    <Compile Remove="Migrations\20200229115611_AddingIdentity.cs" />
+    <Compile Remove="Migrations\20200229115611_AddingIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20200229164015_test.cs" />
+    <Compile Remove="Migrations\20200229164015_test.Designer.cs" />
+    <Compile Remove="Migrations\20200229165217_AddingUsers.cs" />
+    <Compile Remove="Migrations\20200229165217_AddingUsers.Designer.cs" />
+    <Compile Remove="Migrations\20200229180954_UserRolesSeed.cs" />
+    <Compile Remove="Migrations\20200229180954_UserRolesSeed.Designer.cs" />
+    <Compile Remove="Migrations\20200301110043_Fixed.cs" />
+    <Compile Remove="Migrations\20200301110043_Fixed.Designer.cs" />
+    <Compile Remove="Migrations\20200301112848_UserIdentity.cs" />
+    <Compile Remove="Migrations\20200301112848_UserIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20201104011626_Initial.cs" />
+    <Compile Remove="Migrations\20201104011626_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20201104015054_Initial.cs" />
+    <Compile Remove="Migrations\20201104015054_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20201104020253_Initial.cs" />
+    <Compile Remove="Migrations\20201104020253_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20201104020954_Initial.cs" />
+    <Compile Remove="Migrations\20201104020954_Initial.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
+</Project>
