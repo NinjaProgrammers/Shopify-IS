@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Project.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -374,70 +374,6 @@ namespace Project.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.InsertData(
-                table: "BankAccounts",
-                columns: new[] { "Id", "AccountId", "Ammount", "Titular", "UserId" },
-                values: new object[] { 1L, "88888888", 0.1f, "Shoppify", null });
-
-            migrationBuilder.InsertData(
-                table: "ShoppingCarts",
-                column: "Id",
-                values: new object[]
-                {
-                    1L,
-                    2L,
-                    3L,
-                    4L,
-                    5L
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "AccountID", "Active", "City", "Info", "LastName", "Name", "ShoppingCartId" },
-                values: new object[] { "1", 0, "37d27f62-a90d-4e21-bbf0-542530b43346", "User", "a.hernandez@mail.com", false, false, null, null, null, null, "55123456", false, "5e0d2604-bad3-46a2-a789-76940f1ad791", false, "AHernandez", 0L, false, "San Miguel, La Habana", "Los mejores productos", "Hernandez", "Adrian", 1L });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "AccountID", "Active", "City", "Info", "LastName", "Name", "ShoppingCartId" },
-                values: new object[] { "2", 0, "af54c1ce-747b-40c1-b7bf-e622eb80b886", "User", "c.olavarrieta@mail.com", false, false, null, null, null, null, "54321678", false, "afb475a3-7568-4f8d-b53e-1289d6230b4e", false, "Claudita", 0L, false, "Regla, La Habana", "Los mejores productos", "Olavarrieta", "Claudia", 2L });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "AccountID", "Active", "City", "Info", "LastName", "Name", "ShoppingCartId" },
-                values: new object[] { "3", 0, "371a7def-4289-40c2-9579-0b16b6ed8a00", "User", "m.valdivie@mail.com", false, false, null, null, null, null, "54781698", false, "8ae8f950-278c-438e-b523-86c8cfaa2599", false, "marcOS", 0L, false, "Cienfuegos", "Los mejores productos", "Valdivie", "Marcos", 3L });
-
-            migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "Id", "Active", "Ammount", "Category", "Description", "IlicitContent", "Images", "Name", "Price", "Rating", "UserId" },
-                values: new object[,]
-                {
-                    { 1L, true, 5, 10, null, false, "main-product01.jpg", "Shoe", 34.5m, 3, "1" },
-                    { 4L, true, 8, 10, null, false, "product04.jpg", "Blue Shoe", 34.5m, 3, "1" },
-                    { 2L, true, 3, 1, null, false, "banner01.jpg", "Brown Bag", 20.5m, 4, "2" },
-                    { 5L, true, 1, 10, null, false, "product05.jpg", "Black Heels", 39.5m, 4, "2" },
-                    { 3L, true, 2, 1, null, false, "product03.jpg", "Wallet", 10.5m, 5, "3" },
-                    { 6L, true, 4, 1, null, false, "product06.jpg", "Work Bag", 15m, 5, "3" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Reviews",
-                columns: new[] { "ProductId", "UserId", "Active", "Date", "Rating", "ReviewText" },
-                values: new object[,]
-                {
-                    { 1L, "3", false, new DateTime(2019, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." },
-                    { 4L, "2", false, new DateTime(2020, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." },
-                    { 2L, "1", false, new DateTime(2019, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." },
-                    { 2L, "2", false, new DateTime(2020, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." },
-                    { 5L, "1", false, new DateTime(2019, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." },
-                    { 3L, "1", false, new DateTime(2019, 12, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." },
-                    { 6L, "1", false, new DateTime(2019, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Sales",
-                columns: new[] { "Id", "Active", "Ammount", "Date", "Discriminator", "Import", "ProductId", "User_Buy_ID", "User_Sale_ID", "ActualPrice", "ActualUser", "InitialPrice", "InitialTime", "TotalTime" },
-                values: new object[] { 1L, true, 1, new DateTime(2020, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "Auction", 0m, 6L, null, "3", 14m, "2", 14m, new DateTime(2020, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

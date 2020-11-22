@@ -10,8 +10,8 @@ using Project.Models;
 namespace Project.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20201112043607_Initial")]
-    partial class Initial
+    [Migration("20201123042312_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -247,15 +247,6 @@ namespace Project.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("BankAccounts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            AccountId = "88888888",
-                            Ammount = 0.1f,
-                            Titular = "Shoppify"
-                        });
                 });
 
             modelBuilder.Entity("Project.Models.Notification", b =>
@@ -330,86 +321,6 @@ namespace Project.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Active = true,
-                            Ammount = 5,
-                            Category = 10,
-                            IlicitContent = false,
-                            Images = "main-product01.jpg",
-                            Name = "Shoe",
-                            Price = 34.5m,
-                            Rating = 3,
-                            UserId = "1"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Active = true,
-                            Ammount = 3,
-                            Category = 1,
-                            IlicitContent = false,
-                            Images = "banner01.jpg",
-                            Name = "Brown Bag",
-                            Price = 20.5m,
-                            Rating = 4,
-                            UserId = "2"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Active = true,
-                            Ammount = 2,
-                            Category = 1,
-                            IlicitContent = false,
-                            Images = "product03.jpg",
-                            Name = "Wallet",
-                            Price = 10.5m,
-                            Rating = 5,
-                            UserId = "3"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Active = true,
-                            Ammount = 8,
-                            Category = 10,
-                            IlicitContent = false,
-                            Images = "product04.jpg",
-                            Name = "Blue Shoe",
-                            Price = 34.5m,
-                            Rating = 3,
-                            UserId = "1"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            Active = true,
-                            Ammount = 1,
-                            Category = 10,
-                            IlicitContent = false,
-                            Images = "product05.jpg",
-                            Name = "Black Heels",
-                            Price = 39.5m,
-                            Rating = 4,
-                            UserId = "2"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Active = true,
-                            Ammount = 4,
-                            Category = 1,
-                            IlicitContent = false,
-                            Images = "product06.jpg",
-                            Name = "Work Bag",
-                            Price = 15m,
-                            Rating = 5,
-                            UserId = "3"
-                        });
                 });
 
             modelBuilder.Entity("Project.Models.ProductInCart", b =>
@@ -458,71 +369,6 @@ namespace Project.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = 2L,
-                            UserId = "1",
-                            Active = false,
-                            Date = new DateTime(2019, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rating = 3,
-                            ReviewText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                        },
-                        new
-                        {
-                            ProductId = 3L,
-                            UserId = "1",
-                            Active = false,
-                            Date = new DateTime(2019, 12, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rating = 4,
-                            ReviewText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                        },
-                        new
-                        {
-                            ProductId = 2L,
-                            UserId = "2",
-                            Active = false,
-                            Date = new DateTime(2020, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rating = 5,
-                            ReviewText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                        },
-                        new
-                        {
-                            ProductId = 6L,
-                            UserId = "1",
-                            Active = false,
-                            Date = new DateTime(2019, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rating = 1,
-                            ReviewText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                        },
-                        new
-                        {
-                            ProductId = 4L,
-                            UserId = "2",
-                            Active = false,
-                            Date = new DateTime(2020, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rating = 2,
-                            ReviewText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                        },
-                        new
-                        {
-                            ProductId = 1L,
-                            UserId = "3",
-                            Active = false,
-                            Date = new DateTime(2019, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rating = 3,
-                            ReviewText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                        },
-                        new
-                        {
-                            ProductId = 5L,
-                            UserId = "1",
-                            Active = false,
-                            Date = new DateTime(2019, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rating = 3,
-                            ReviewText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                        });
                 });
 
             modelBuilder.Entity("Project.Models.Sale", b =>
@@ -580,28 +426,6 @@ namespace Project.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ShoppingCarts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L
-                        },
-                        new
-                        {
-                            Id = 2L
-                        },
-                        new
-                        {
-                            Id = 3L
-                        },
-                        new
-                        {
-                            Id = 4L
-                        },
-                        new
-                        {
-                            Id = 5L
-                        });
                 });
 
             modelBuilder.Entity("Project.Models.UserInAuction", b =>
@@ -660,71 +484,6 @@ namespace Project.Migrations
                     b.HasIndex("ShoppingCartId");
 
                     b.HasDiscriminator().HasValue("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "37d27f62-a90d-4e21-bbf0-542530b43346",
-                            Email = "a.hernandez@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PhoneNumber = "55123456",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "5e0d2604-bad3-46a2-a789-76940f1ad791",
-                            TwoFactorEnabled = false,
-                            UserName = "AHernandez",
-                            AccountID = 0L,
-                            Active = false,
-                            City = "San Miguel, La Habana",
-                            Info = "Los mejores productos",
-                            LastName = "Hernandez",
-                            Name = "Adrian",
-                            ShoppingCartId = 1L
-                        },
-                        new
-                        {
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "af54c1ce-747b-40c1-b7bf-e622eb80b886",
-                            Email = "c.olavarrieta@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PhoneNumber = "54321678",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "afb475a3-7568-4f8d-b53e-1289d6230b4e",
-                            TwoFactorEnabled = false,
-                            UserName = "Claudita",
-                            AccountID = 0L,
-                            Active = false,
-                            City = "Regla, La Habana",
-                            Info = "Los mejores productos",
-                            LastName = "Olavarrieta",
-                            Name = "Claudia",
-                            ShoppingCartId = 2L
-                        },
-                        new
-                        {
-                            Id = "3",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "371a7def-4289-40c2-9579-0b16b6ed8a00",
-                            Email = "m.valdivie@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PhoneNumber = "54781698",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ae8f950-278c-438e-b523-86c8cfaa2599",
-                            TwoFactorEnabled = false,
-                            UserName = "marcOS",
-                            AccountID = 0L,
-                            Active = false,
-                            City = "Cienfuegos",
-                            Info = "Los mejores productos",
-                            LastName = "Valdivie",
-                            Name = "Marcos",
-                            ShoppingCartId = 3L
-                        });
                 });
 
             modelBuilder.Entity("Project.Models.Auction", b =>
@@ -748,23 +507,6 @@ namespace Project.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasDiscriminator().HasValue("Auction");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Active = true,
-                            Ammount = 1,
-                            Date = new DateTime(2020, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Import = 0m,
-                            ProductId = 6L,
-                            User_Sale_ID = "3",
-                            ActualPrice = 14m,
-                            ActualUser = "2",
-                            InitialPrice = 14m,
-                            InitialTime = new DateTime(2020, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

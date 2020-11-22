@@ -84,7 +84,8 @@ namespace Project
         }
          
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IServiceProvider serviceProvider,UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
+            ApplicationDBContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -113,9 +114,7 @@ namespace Project
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-
-            //seed.SeedAdminUser();
-
+            Seed.AddData(context, userManager, roleManager);
         }
     }
 }
